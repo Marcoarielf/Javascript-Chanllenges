@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge 1</title>
+</head>
+<body>
+    <h1>Check exercise in console.</h1>
+</body>
+
+<script>
+    /*
+
+    Mark and John are trying to compare their BMI (Body Mass Index), which is
+    calculated using the formula:
+    BMI = mass / height ** 2 = mass / (height * height) (mass in kg
+    and height in meter).
+
+    Your tasks:
+    1. Store Mark's and John's mass and height in variables
+    2. Calculate both their BMIs using the formula (you can even implement both
+    versions)
+    3. Create a Boolean variable 'markHigherBMI' containing information about
+    whether Mark has a higher BMI than John.
+    Test data:
+    § Data 1: Marks weights 78 kg and is 1.69 m tall. John weights 92 kg and is 1.95
+    m tall.
+    § Data 2: Marks weights 95 kg and is 1.88 m tall. John weights 85 kg and is 1.76
+    m tall.
+
+    */
+
+    /*
+    DATA1
+    */
+    let mMass = 78;
+    let jMass = 92;
+    let mHeight = 1.69;
+    let jHeight = 1.95;
+
+    /* Javascript read ** from right to Left while multiplication reads from left to right. That's why I put parenthesis. */
+    /* I used let variable for academic purposes.*/
+    let markBMI = mMass / (mHeight ** 2);
+    let johnBMI = jMass / (jHeight * jHeight);
+    let markHigherBMI = markBMI > johnBMI;
+
+    console.log('mark mass ' + markBMI);
+    console.log('john mass ' + johnBMI);
+    console.log('Mark has a higher BMI than John: ' + markHigherBMI);
+
+    /* DATA 2 */
+
+    mMass = 95;
+    mHeight = 1.88;
+    jMass = 85;
+    jHeight = 1.76;
+
+    markBMI = mMass / (mHeight ** 2);
+    johnBMI = jMass / (jHeight * jHeight);
+    markHigherBMI = markBMI > johnBMI;
+
+    console.log('mark mass ' + markBMI);
+    console.log('john mass ' + johnBMI);
+    console.log('Mark has a higher BMI than John: ' + markHigherBMI);
+ 
+    //const BMI = mass / height ** 2 = mass / (height * height)
+</script>
+</html>
