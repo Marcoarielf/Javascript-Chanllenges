@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Methods</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        body{
+            background: rgb(141,0,255);
+            background: radial-gradient(circle, rgba(141,0,255,1) 0%, rgba(153,70,255,1) 47%, rgba(186,120,255,1) 100%);
+            font-family: Montserrat;
+            font-weight: 800;
+            color: white;
+            text-transform: uppercase;
+            height: 100vh;
+            width: 100vw;
+        }
+        p, ul li{
+            font-size: 14px;
+            font-weight: normal;
+            padding-top: 10px;
+            text-transform: lowercase;
+        }
+        body .content-container{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container{
+            width: 400px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-container">
+        <div class="container">
+            <h1>Chapter 3</h1>
+            <h2>Exersice 1</h2>
+            <p>Your tasks:</p>
+            <ul>
+                <li>For each of them, create an object with properties for their full name, mass, and 
+                    height (Mark Miller and John Smith)</li>
+                    <li>
+                     Create a 'calcBMI' method on each object to calculate the BMI (the same 
+                method on both objects). Store the BMI value to a property, and also return it 
+                from the method
+                    </li>
+                    <li>
+                        Log to the console who has the higher BMI, together with the full name and the 
+                        respective BMI. Example: "John's BMI (28.3) is higher than Mark's (23.9)!"
+                        Test data: Marks weights 78 kg and is 1.69 m tall. John weights 92 kg and is 1.95 m 
+                        tall</li>
+            </ul>
+            <p>you will be able to see the results in the console ✔ </p>
+        </div>
+    </div>
+
+    <script>
+        'use strict';
+
+        // BMI = mass / height ** 2 = mass / (height * height) (mass in kg and height in mete
+        const mark = {
+            firstName: 'Mark',
+            lasName: 'Miller',
+            mass: 78,
+            height: 1.69,
+            calcBMI: function() {
+                this.bmi = this.mass / this.height**2;
+                return this.bmi;
+            }
+        };
+        const john = {
+            firstName: 'John',
+            lasName: 'Smith',
+            mass: 92,
+            height: 1.95,
+            calcBMI: function() {
+                this.bmi = this.mass / (this.height**2);
+                return this.bmi;
+            }
+        };
+
+        
+        console.log(mark.calcBMI());
+        console.log(mark.bmi);
+        console.log(john.calcBMI());
+        console.log(john.bmi);
+        
+
+        if( mark.bmi > john.bmi ) {
+            console.log(`${mark.firstName}'s BMI (${mark.bmi}) is higher than ${john.firstName}'s BMI (${john.bmi}) `)
+        }else{
+            console.log(`${john.firstName}'s BMI (${john.bmi}) is higher than ${mark.firstName}'s BMI (${mark.bmi})`)
+        }
+    </script>
+</body>
+</html>

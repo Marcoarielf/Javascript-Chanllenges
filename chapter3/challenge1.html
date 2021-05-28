@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{
+            background: rgb(141,0,255);
+            background: radial-gradient(circle, rgba(141,0,255,1) 0%, rgba(153,70,255,1) 47%, rgba(186,120,255,1) 100%);
+            font-family: Montserrat;
+            font-weight: 800;
+            color: white;
+            text-transform: uppercase;
+        }
+        body div{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Chapter 3</h1>
+        <h2>Exersice 1</h2>
+    </div>
+    
+
+    <script>
+        'use strict';
+        /*
+        1. Calculate the average score for each team, using the test data below
+        2. Compare the team's average scores to determine the winner of the competition, 
+        and print it to the console. Don't forget that there can be a draw, so test for that 
+        as well (draw means they have the same average score)
+        3. Bonus 1: Include a requirement for a minimum score of 100. With this rule, a 
+        team only wins if it has a higher score than the other team, and the same time a 
+        score of at least 100 points. Hint: Use a logical operator to test for minimum 
+        score, as well as multiple else-if blocks �
+        4. Bonus 2: Minimum score also applies to a draw! So a draw only happens when 
+        both teams have the same score and both have a score greater or equal 100 
+        points. Otherwise, no team wins the trophy
+        Test data:
+        § Data 1: Dolphins score 96, 108 and 89. Koalas score 88, 91 and 110
+        § Data Bonus 1: Dolphins score 97, 112 and 101. Koalas score 109, 95 and 123
+        § Data Bonus 2: Dolphins score 97, 112 and 101. Koalas score 109, 95 and 106
+        */
+
+        
+        // DATA1
+        const dolphinsScore1 = 96;
+        const dolphinsScore2 = 108;
+        const dolphinsScore3 = 89;
+        const koalasScore1 = 88;
+        const koalasScore2 = 91;
+        const koalasScore3 = 110;
+
+        //DATA2
+
+        // const dolphinsScore1 = 97;
+        // const dolphinsScore2 = 112;
+        // const dolphinsScore3 = 101;
+        // const koalasScore1 = 109;
+        // const koalasScore2 = 95;
+        // const koalasScore3 = 106;
+
+        const calcAverage = (n1, n2, n3) => (n1 + n2 + n3) / 3;
+
+        const dolphinsAverage = calcAverage(dolphinsScore1,dolphinsScore2,dolphinsScore3);
+        const koalasAverage = calcAverage(koalasScore1,koalasScore2,koalasScore3);
+
+        checkWinner(dolphinsAverage, koalasAverage)
+
+        function checkWinner(n1, n2){
+            if(n1 || n2 > 0){
+                if(n1 >= n2*2){
+                    return console.log('dolphins win');
+                }else if(n2 >= n1*2){
+                    return console.log('koalas win')
+                }else if(n1 == n2){
+                    return console.log("draw")
+                }else{
+                    return console.log("no ones win")
+                }
+            }else{
+                return console.log('there is minimun 100 required');
+            }
+            
+        }
+        
+
+
+    </script>
+</body>
+</html>
