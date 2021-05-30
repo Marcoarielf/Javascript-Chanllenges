@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Methods</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        body{
+            background: rgb(141,0,255);
+            background: radial-gradient(circle, rgba(141,0,255,1) 0%, rgba(153,70,255,1) 47%, rgba(186,120,255,1) 100%);
+            font-family: Montserrat;
+            font-weight: 800;
+            color: white;
+            text-transform: uppercase;
+            height: 100vh;
+            width: 100vw;
+        }
+        p, ul li{
+            font-size: 14px;
+            font-weight: normal;
+            padding-top: 10px;
+            text-transform: lowercase;
+        }
+        body .content-container{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            height: 100vh;
+        }
+        .container, .container-2{
+            width: 70%;
+            height: auto;
+            padding: 20px
+        }
+        @media screen and (max-width: 760px){
+            body .content-container{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+            .container, .container-2{
+                width: 80%;
+                height: auto;
+                padding: 20px
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content-container">
+        <div class="container">
+            <h1>Chapter 3</h1>
+            <h2>Exersice 4</h2>
+            <p>Let's improve Steven's tip calculator even more, this time using loops!
+                Your tasks:
+            </p>
+            <ul>
+                <li>
+                    Create an array 'bills' containing all 10 test bill values
+                </li>
+                <li>
+                    Create empty arrays for the tips and the totals ('tips' and 'totals')
+                </li>
+                <li>
+                    Use the 'calcTip' function we wrote before (no need to repeat) to calculate 
+                    tips and total values (bill + tip) for every bill value in the bills array. Use a for
+                    loop to perform the 10 calculations!
+                </li>
+            </ul>
+            <p>Test data: 22, 295, 176, 440, 37, 105, 10, 1100, 86 and 52 ✔ </p>
+            <p>Hints: Call ‘calcTip ‘in the loop and use the push method to add values to the 
+                tips and totals arrays
+            </p>
+        </div>
+        <div class="container-2">
+            <h2>Bonus ✔ </h2>
+            <p>Write a function 'calcAverage' which takes an array called 'arr' as 
+                an argument. This function calculates the average of all numbers in the given 
+                array. This is a difficult challenge (we haven't done this before)! Here is how to 
+                solve it:
+            </p>
+            <ul>
+                <li>
+                    <p>First, you will need to add up all values in the array. To do the addition, 
+                        start by creating a variable 'sum' that starts at 0. Then loop over the 
+                        array using a for loop. In each iteration, add the current value to the 
+                        'sum' variable. This way, by the end of the loop, you have all values 
+                        added together
+                    </p>
+                </li>
+                <li>
+                    <p>To calculate the average, divide the sum you calculated before by the 
+                        length of the array (because that's the number of elements</p>
+                </li>
+                <li>
+                    <p>Call the function with the 'totals' array</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        'use strict';
+        const bills = [22, 295, 176, 440, 37, 105, 10, 1100, 86, 52];
+        const tips = [];
+        const totals = [];
+        console.log(tips);
+        const calcTip = function(bill){
+            return bill >= 50 && bill <= 300 ? bill * 0.15 : bill * 0.2;
+        }
+
+        for(let i = 0; i < bills.length; i++){
+            tips.push(calcTip(bills[i]));
+            totals.push(bills[i] + tips[i]);
+        }
+        console.log(tips);
+        console.log(totals);
+        console.log('------- 🛑 BONUS 🛑   ------');
+
+        let suma = 0;
+
+        const calcAverage = function(arr){
+            for(let n = 0; n< arr.length; n++){
+                suma += arr[n];
+            }
+            return suma / arr.length;
+        }
+
+        console.log(calcAverage(totals));
+    </script>
+</body>
+</html>
