@@ -1,0 +1,37 @@
+*{
+    margin:0;
+    padding:0;
+}
+body{
+    background: rgb(141,0,255);
+    background: radial-gradient(circle, rgba(141,0,255,1) 0%, rgba(153,70,255,1) 47%, rgba(186,120,255,1) 100%);
+    font-family: Montserrat;
+    font-weight: 800;
+    color: white;
+    text-transform: uppercase;
+    height: 100vh;
+    width: 100vw;
+}
+p, ul li{
+    font-size: 14px;
+    font-weight: normal;
+    padding-top: 10px;
+    text-transform: lowercase;
+}
+span{
+    font-size: 10px;
+    color: #fafafa;
+    font-weight: normal;
+    text-transform: lowercase;
+}
+body .content-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container{
+    width: 400px;
+    height: auto;
+}
