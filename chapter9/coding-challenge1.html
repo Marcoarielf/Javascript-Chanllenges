@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debugging</title>
+    <script src="script.js"></script>
+    <style>
+        *{
+    margin:0;
+    padding:0;
+    }
+    body{
+        background: rgb(36, 0, 66);
+        background: radial-gradient(circle, rgb(20, 0, 66) 0%, rgb(31, 1, 88) 47%, rgb(36, 0, 121) 100%);
+        font-family: Montserrat;
+        font-weight: 800;
+        color: white;
+        text-transform: uppercase;
+        height: 100vh;
+        width: 100vw;
+    }
+    p, ul li{
+        font-size: 14px;
+        font-weight: normal;
+        padding-top: 10px;
+        text-transform: lowercase;
+    }
+    span{
+        font-size: 10px;
+        color: #fafafa;
+        font-weight: normal;
+        text-transform: lowercase;
+    }
+    body .content-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        padding: 30px
+    }
+    .container{
+        width: 400px;
+        height: auto;
+    }
+    </style>
+</head>
+<body>
+    <div class="content-container">
+        <div class="container">
+            <h1>Chapter 9</h1>
+            <h2>Challenge 1</h2>
+            <p>We're building a football betting app (soccer for my American friends 😁)!
+                Suppose we get data from a web service about a certain game ('game' variable on
+                next page). In this challenge we're gonna work with that data
+                </p>
+            <p>Your tasks:</p>
+            <ul>
+                <li>
+                    Create one player array for each team (variables 'players1' and
+'players2')
+                </li>
+                <li>
+                    The first player in any player array is the goalkeeper and the others are field
+players. For Bayern Munich (team 1) create one variable ('gk') with the
+goalkeeper's name, and one array ('fieldPlayers') with all the remaining 10
+field players
+                </li>
+
+                <li>
+                    Create an array 'allPlayers' containing all players of both teams (22
+                    players)
+                </li>
+                <li>
+                    . During the game, Bayern Munich (team 1) used 3 substitute players. So create a
+                    new array ('players1Final') containing all the original team1 players plus
+                    'Thiago', 'Coutinho' and 'Perisic'
+                </li>
+                <li>
+                    Based on the game.odds object, create one variable for each odd (called
+                    'team1', 'draw' and 'team2')
+                </li>
+                <li>
+                    Write a function ('printGoals') that receives an arbitrary number of player
+                    names (not an array) and prints each of them to the console, along with the
+                    number of goals that were scored in total (number of player names passed in)
+                </li>
+                <li>
+                    The team with the lower odd is more likely to win. Print to the console which
+                    team is more likely to win, without using an if/else statement or the ternary
+                    operator.
+                </li>
+            </ul>
+            
+            
+            <p>Test data for 6.:<br> First, use players 'Davies', 'Muller', 'Lewandowski' and 'Kimmich'.
+                Then, call the function again with players from game.scored
+            </p>
+            <br>
+            <span>Please, review it in console</span>
+        </div>
+    </div>
+
+    <script>
+        'use strict';
+
+        const game = {
+            team1: 'Bayern Munich',
+            team2: 'Borrussia Dortmund',
+            players: [
+            [
+            'Neuer',
+            'Pavard',
+            'Martinez',
+            'Alaba',
+            'Davies',
+            'Kimmich',
+            'Goretzka',
+            'Coman',
+            'Muller',
+            'Gnarby',
+            'Lewandowski',
+            ],
+            [
+            'Burki',
+            'Schulz',
+            'Hummels',
+            'Akanji',
+            'Hakimi',
+            'Weigl',
+            'Witsel',
+            'Hazard',
+            'Brandt',
+            'Sancho',
+            'Gotze',
+            ],
+            ],
+            score: '4:0',
+            scored: ['Lewandowski', 'Gnarby', 'Lewandowski',
+            'Hummels'],
+            date: 'Nov 9th, 2037',
+            odds: {
+                team1: 1.33,
+                x: 3.25,
+                team2: 6.5,
+            },
+            printGoals: function(...numberOfPlayersNames){
+                console.log(`${numberOfPlayersNames.length} goals were scored.`);
+            }
+        };
+        //first
+        const [players1, players2] = game.players;
+        console.log('Players1: ' + players1);
+        console.log('Players2: ' + players2);
+
+        //second: using REST operator to show the rest of the team.
+        console.log('------ SECOND --------');
+        const [gk, ...fieldPlayers] = players1;
+        console.log('gk: ' + gk);
+        console.log('fieldplayers: ' + fieldPlayers);
+
+        //third
+        console.log('------ THIRD --------');
+        const allplayers = [...players1, ...players2];
+        console.log(allplayers);
+
+        //four
+        console.log('------ FOUR --------');
+        const players1Final = [...players1, 'Thiago', 'Coutinho', 'Perisic'];
+        console.log('players 1 Final: ' + players1Final);
+
+        //five
+        console.log('------ FIVE --------');
+        //object destructuring - with this, we're inside odds object.
+        //const {odds} = game;
+
+        const {odds: {team1, x: draw, team2}} = game;
+        console.log('team1: ' + team1);
+        console.log('draw: ' + draw);
+        console.log('team2: ' + team2);
+
+        //six 
+        console.log('------ SIX --------');
+        game.printGoals('davies','muller', 'lewandoski', 'kimmich');
+        game.printGoals(...game.scored);
+
+        //seven
+        console.log('------ SEVEN --------');
+        team1 < team2 && console.log('Team1 is more likely to win');
+        team1 > team2 && console.log('Team2 is more likely to win');
+        
+    </script>
+</body>
+</html>
