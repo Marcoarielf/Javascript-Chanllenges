@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter9</title>
+    <script src="script.js"></script>
+    <style>
+        *{
+    margin:0;
+    padding:0;
+    }
+    body{
+        background: rgb(36, 0, 66);
+        background: radial-gradient(circle, rgb(20, 0, 66) 0%, rgb(31, 1, 88) 47%, rgb(36, 0, 121) 100%);
+        font-family: Montserrat;
+        font-weight: 800;
+        color: white;
+        text-transform: uppercase;
+        height: 100vh;
+        max-width: 100vw;
+    }
+    h3{
+        font-size: 15px;
+        font-weight: 600;
+    }
+    p, ul li{
+        font-size: 14px;
+        font-weight: normal;
+        padding-top: 10px;
+        text-transform: lowercase;
+    }
+    .bullets2{
+        padding: 10px 25px;
+    }
+    span{
+        font-size: 10px;
+        color: #fafafa;
+        font-weight: normal;
+        text-transform: lowercase;
+    }
+    body .content-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        padding: 30px
+    }
+    .container{
+        width: 80%;
+        height: auto;
+    }
+    textarea{
+        margin-top: 10px;
+        min-width: 200px;
+        min-height: 100px;
+        margin-right: 20px;
+    }
+    button{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: green;
+    }
+    </style>
+</head>
+<body>
+    <div class="content-container">
+        <div class="container">
+            <h1>Chapter 9</h1>
+            <h2>Challenge 4</h2>
+            <p>Write a program that receives a list of variable names written in underscore_case
+                and convert them to camelCase.
+                The input will come from a textarea inserted into the DOM (see code below to
+                insert the elements), and conversion will happen when the button is pressed.
+                </p>
+
+            <h3>Test data (pasted to textarea, including spaces):</h3>
+            <p>underscore_case <br>
+                &nbsp;first_name <br>
+                Some_Variable <br>
+                &nbsp;&nbsp;calculate_AGE <br>
+                delayed_departure<br><br></p>
+                
+            <h3>Should produce this output (5 separate console.log outputs):</h3>
+            <p>underscoreCase ✅ <br>
+                firstName ✅✅ <br>
+                someVariable ✅✅✅ <br>
+                calculateAge ✅✅✅✅<br>   
+                delayedDeparture ✅✅✅✅✅<br></p>
+                
+            <p>Hints:</p>
+            <ul>
+                <li>
+                    Remember which character defines a new line in the textarea
+                </li>
+                <li>
+                    The solution only needs to work for a variable made out of 2 words, like a_b
+
+                </li>
+
+                <li>
+                    Start without worrying about the ✅. Tackle that only after you have the variable
+name conversion working
+                </li>
+                <li>
+                    This challenge is difficult on purpose, so start watching the solution in case
+you're stuck. Then pause and continue!<br>
+                </li>
+            </ul>
+            <br>
+            <h3><strong>Afterwards, test with your own test data</strong></h3>
+            <p>Put variable names here:</p>
+        </div>
+    </div>
+
+    <script>
+        'use strict';
+        document.querySelector('.container').append(document.createElement('textarea'));
+        document.querySelector('.container').append(document.createElement('button'));
+
+        document.querySelector('button').addEventListener("click",  function(){
+            
+            const textAreaContent = document.querySelector('textarea').value;
+            let icon = '✅';
+            const arrayTexts = textAreaContent.split('\n');
+
+            for(const text of arrayTexts){
+
+                const [first,second] = text.toLowerCase().trim().split('_');
+                const output = `${first}${second.replace(second[0],second[0].toUpperCase())}`;
+                console.log(`${output}${icon}`);
+
+                // let underScorePosition = text.indexOf('_');
+                // console.log(underScorePosition);
+                // let replace = text[underScorePosition + 1].toUpperCase();
+                // console.log(text[underScorePosition]);
+                // console.log(replace);
+                // text[underScorePosition+1] = replace;
+                // array
+                //     .push(text)
+                //     .trim();
+                // console.log(array[underScorePosition + 1]);
+                // console.log(array[index]);
+                //console.log(`${array[icon.length-1]} ${icon}`);
+                icon += '✅';
+            }
+
+            
+        });
+        
+    </script>
+</body>
+</html>

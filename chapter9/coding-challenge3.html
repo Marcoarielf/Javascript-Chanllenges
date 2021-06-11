@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter9</title>
+    <script src="script.js"></script>
+    <style>
+        *{
+    margin:0;
+    padding:0;
+    }
+    body{
+        background: rgb(36, 0, 66);
+        background: radial-gradient(circle, rgb(20, 0, 66) 0%, rgb(31, 1, 88) 47%, rgb(36, 0, 121) 100%);
+        font-family: Montserrat;
+        font-weight: 800;
+        color: white;
+        text-transform: uppercase;
+        height: 100vh;
+        max-width: 100vw;
+    }
+    p, ul li{
+        font-size: 14px;
+        font-weight: normal;
+        padding-top: 10px;
+        text-transform: lowercase;
+    }
+    .bullets2{
+        padding: 10px 25px;
+    }
+    span{
+        font-size: 10px;
+        color: #fafafa;
+        font-weight: normal;
+        text-transform: lowercase;
+    }
+    body .content-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        padding: 30px
+    }
+    .container{
+        width: 400px;
+        height: auto;
+    }
+
+    code{
+        background-color: #292929;
+    }
+    </style>
+</head>
+<body>
+    <div class="content-container">
+        <div class="container">
+            <h1>Chapter 9</h1>
+            <h2>Challenge 3</h2>
+            <p>Let's continue with our football betting app! This time, we have a map called
+                'gameEvents' (see below) with a log of the events that happened during the
+                game. The values are the events themselves, and the keys are the minutes in which
+                each event happened (a football game has 90 minutes plus some extra time)
+                </p>
+            <p>Your tasks:</p>
+            <ul>
+                <li>
+                    1. Create an array 'events' of the different game events that happened (no
+                    duplicates)
+                </li>
+                <li>
+                    2. After the game has finished, is was found that the yellow card from minute 64
+                    was unfair. So remove this event from the game events log.
+                </li>
+
+                <li>
+                    3. Compute and log the following string to the console: "An event happened, on
+                    average, every 9 minutes" (keep in mind that a game has 90 minutes)
+                </li>
+                <li>
+                    4. Loop over 'gameEvents' and log each element to the console, marking
+whether it's in the first half or second half (after 45 min) of the game, like this:
+ <br> [FIRST HALF] 17: ⚽ GOAL<br>
+                </li>
+            </ul>
+            <br>
+            <span>Please, review it in console</span>
+        </div>
+    </div>
+
+    <script>
+        'use strict';
+
+        const gameEvents = new Map([
+            [17, '⚽ GOAL'],
+            [36, '💔 Substitution'],
+            [47, '⚽ GOAL'],
+            [61, '💔 Substitution'],
+            [64, '🟨 Yellow card'],
+            [69, '🟥 Red card'],
+            [70, '💔 Substitution'],
+            [72, '💔 Substitution'],
+            [76, '⚽ GOAL'],
+            [80, '⚽ GOAL'],
+            [92, '🟨 Yellow card'],
+        ]);
+
+        // first
+        console.log('FIRST EXERCISE');
+        //map.values() give us the values on a map.
+        const gameValues = gameEvents.values();
+        let events = new Set(gameValues);
+        // convert MAP to an array: [...map]
+        console.log([...events]);
+        
+        // second
+        console.log('SECOND CHALLENGE');
+        console.log(gameEvents.has(64));
+        gameEvents.delete(64);
+        console.log(gameEvents.has(64));
+        console.log(gameEvents);
+
+        // Third exercise
+        console.log('THIRD EXERCISE');
+        console.log(gameEvents.size);
+        // 90 it's because its the time of a football game.
+        console.log(`an event happened, on average, every ${90/gameEvents.size} minutes`);
+        
+
+        // FOUR exercise:
+        console.log('FOUR EXERCISE');
+        for(const [key,value] of gameEvents){
+            key < 45 ? 
+            console.log(`[First half] ${key}: ${value}`) :
+            console.log(`[second half] ${key}: ${value}`) ;
+        }
+    
+
+    </script>
+</body>
+</html>
