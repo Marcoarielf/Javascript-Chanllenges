@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>A Closer Look at Functions</title>
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        background: linear-gradient(to top left, #28b487, #7dd56f);
+      }
+      h1 {
+        font-family: sans-serif;
+        font-size: 50px;
+        line-height: 1.3;
+        width: 100%;
+        padding: 30px;
+        text-align: center;
+        color: white;
+      }
+      .buy,
+      .poll {
+        font-size: 1.6rem;
+        padding: 1rem 2rem;
+        position: absolute;
+        top: 2rem;
+      }
+      .buy {
+        left: 2rem;
+      }
+      .poll {
+        right: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>A Closer Look at Functions</h1>
+    <button class="buy">Buy new plane 🛩</button>
+    <button class="poll">Answer poll ⁉️</button>
+
+    <script>
+      'use strict'
+      /* 
+        Let's build a simple poll app!
+        A poll has a question, an array of options from which people can choose, and an
+        array with the number of replies for each option. This data is stored in the starter
+        'poll' object below.
+
+        1. Create a method called 'registerNewAnswer' on the 'poll' object. The
+        method does 2 things:
+        1.1. Display a prompt window for the user to input the number of the
+        selected option. The prompt should look like this:
+        What is your favourite programming language?
+        0: JavaScript
+        1: Python
+        2: Rust
+        3: C++
+        (Write option number)
+      */
+
+      const poll = {
+        question: "What is your favourite programming language?",
+        options: ["0: JavaScript", "1: Python", "2: Rust", "3: C++"],
+        answers: new Array(4).fill(0),
+
+        registerNewAnswer(){
+          console.log(this);
+          const selectedOption = Number(prompt('What is your favourite programming language?\n 0: JavaScript\n 1: Python\n 2: Rust\n 3: C++'));
+          typeof selectedOption === 'number' &&
+            selectedOption < this.answers.length &&
+            selectedOption >= 0 &&
+            this.answers[selectedOption]++;
+            this.displayResults();
+            // this.displayResults('string');
+        },
+
+        displayResults(type = 'array'){
+          console.log(this.answers);
+          type === 'string' &&
+          console.log(`Poll results are ${this.answers.join(',')} `);
+        }
+      };
+
+      /* Test data for bonus:
+      § Data 1: [5, 2, 3]
+      § Data 2: [1, 5, 3, 9, 6, 1]
+      */
+
+      // displayResults uses this.answers that points to poll object. If I
+      // want a new array of answers, I can call the function.
+      // con call method, la funcion displayResults ahora apunta a un nuevo
+      // this. this, en este caso, hace referencia al array pasado.
+      poll.displayResults.call({answers: [5, 2, 3]}, 'string');
+      document.querySelector('.poll').addEventListener('click', poll.registerNewAnswer.bind(poll));
+    </script>
+  </body>
+</html>
