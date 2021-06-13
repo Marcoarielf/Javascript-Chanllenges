@@ -12,6 +12,7 @@ All challenges are on 'all-coding-challenges.pdf': file uploaded in the root dir
 * "/chapter3" I've worked with object methods. There is an example of this.
 * "/chapter7" I've done 3 different projects, using the knowledge from chapter1 and chapter3. Winorhold game its live: https://elastic-kowalevski-9231ef.netlify.app/ try it 😋*
 * "/chapter9" Data Structures / Modern Operators and String. 4 Coding Challeges: Destructuring, SPREAD, REST, SET, MAPS, STRINGS, and more... *
+* * "/chapter9" Closer look at functions: Call & bind methods, IIFE, closures ✅*
 
 
 
