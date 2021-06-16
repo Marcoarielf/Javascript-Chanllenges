@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>IIFE + CLOSURES</title>
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        background: linear-gradient(to top left, #28b487, #7dd56f);
+      }
+      h1 {
+        font-family: sans-serif;
+        font-size: 50px;
+        line-height: 1.3;
+        width: 100%;
+        padding: 30px;
+        text-align: center;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>IIFE (Inmediatly Invoked Function Expresions) + Closures</h1>
+
+    <script>
+      'use strict';
+      /* 
+       Your tasks:
+      1. Take the IIFE below and at the end of the function, attach an event listener that
+      changes the color of the selected h1 element ('header') to blue, each time
+      the body element is clicked. Do not select the h1 element again!
+      2. And now explain to yourself (or someone around you) why this worked! Take all
+      the time you need. Think about when exactly the callback function is executed,
+      and what that means for the variables involved in this example.
+      */
+
+      (function () {
+        const header = document.querySelector('h1');
+        header.style.color = 'red';
+
+        const changeColor = () => header.style.color = 'blue';
+
+        document.addEventListener('click', changeColor);
+      })();
+
+      /* 
+      Tenemos una IIFE.
+      1- Esta porción de código empieza ejecutandose en el 'global execution context'
+      2- In this global execution context, we have only this IIFE.
+      3- So, nuestro global scope sólo contiene: IIFE
+      4- once the function run, a new execution context is put on top of the execution stack.
+      5- Each execution context, has a variable environment which contains all its local variables -> scope de la function
+         in this case: header, changeColor(f)
+      6- scope chain (la cadena de scopes, de arriba hacia bajo) luce algo así:
+         header, changeColor // IIFE (viene de global scope)
+
+      7- como el callback nació dentro de la función, esta tiene acceso (gracias a clousres) a todas las variables de
+         ese contexto de ejecución.
+      8- Entonces, el scope chain de este callback sería: su propio scope (empty xq no tiene variables) + scope de su padre: header, changeColor();
+
+      como está funcionando el call stack:
+      - se ejecuta la funcion (Un nuevo contexto de ejecución en el top del call stack);
+          (crea las variables necesarias y termina). El contexto de ejecución sale del call stack.
+      - Quedó un evento escuchando en el document.
+
+      - al escuchar el click, y gracias a Closure, tenemos acceso a las variables de donde fue creada este call back.
+      Es por ello que este callback es capaz de leer la variable header y la funcion changeColor();
+
+      */
+
+      
+    </script>
+  </body>
+</html>
