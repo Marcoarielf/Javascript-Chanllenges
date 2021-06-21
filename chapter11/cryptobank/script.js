@@ -7,7 +7,7 @@
 // Data
 const account1 = {
   owner: 'Marco Filetto',
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+  movements: [10, 450, -400, 24, -650, -130, 70, 80],
   interestRate: 1.2, // %
   pin: 1111,
 };
@@ -21,14 +21,14 @@ const account2 = {
 
 const account3 = {
   owner: 'Elon Musk',
-  movements: [200, -200, 340, -300, -20, 50, 400, -460],
+  movements: [2000, -12200, 3240, -3000, -2230, 5340, 4030, -460],
   interestRate: 0.7,
   pin: 3333,
 };
 
 const account4 = {
   owner: 'CZ Binance',
-  movements: [430, 1000, 700, 50, 90],
+  movements: [43320, 10030, 7300, 5320, 903],
   interestRate: 1,
   pin: 4444,
 };
@@ -61,11 +61,13 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const displayMovements = function(movements){
-  movements.forEach(function(movement, index){
+const displayMovements = function(movements, sort = false){
+
+  const movs = sort ? movements.slice().sort((a,b) => a-b) : movements;
+
+  movs.forEach(function(movement, index){
 
     const type = movement > 0 ? 'deposit' : 'withdrawal';
-    
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${index + 1} ${type}</div>
@@ -78,7 +80,42 @@ const displayMovements = function(movements){
 
   })
 }
-displayMovements(account1.movements);
+
+const displayBalance = function(acc){
+  acc.balance = acc.movements.reduce((acc, curr) => acc += curr, 0);
+  labelBalance.textContent = `${acc.balance} $`
+}
+
+// displaySummary
+const summary = function(acc){
+  const incomes = acc.movements
+                  .filter(mov => mov >= 0)
+                  .reduce((acc, current) => acc += current);
+  
+  const outcomes = acc.movements
+                  .filter(mov => mov < 0)
+                  .reduce((acc, current) => acc += current, 0);
+
+  const interesest = acc.movements
+                      .filter(mov => mov >= 0)
+                      .map(value => (value * acc.interestRate) / 100)
+                      .filter(mov => mov >= 1)
+                      .reduce((acc, curr) => acc += curr);
+
+  labelSumIn.textContent = `${incomes}BTC`;
+  labelSumOut.textContent = `${Math.abs(outcomes)}BTC`;
+  labelSumInterest.textContent = `${interesest}USD`;
+
+}
+
+const updateUI = function (acc){
+  // display movements
+  displayMovements(acc.movements);
+  // display balances
+  displayBalance(acc);
+  //display summary
+  summary(acc);
+}
 
 const owner = 'Marco Filetto';
 const username = owner
@@ -125,8 +162,80 @@ const createUserNames = function(accounts){
 createUserNames(accounts);
 console.log(accounts);
 
+// event handlers
+let currentAccount;
+
+btnLogin.addEventListener('click',function(e){
+  e.preventDefault();
+
+  currentAccount = accounts.find( acc => acc.username === inputLoginUsername.value);
+  console.log(currentAccount);
+
+  if(currentAccount?.pin === Number(inputLoginPin.value)){
+    // Display UI and welcome message
+    labelWelcome.textContent = `Welcome Back, ${currentAccount.owner.split(' ')[0]}`;
+    containerApp.style.opacity = 1;
+    //clear fields
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginPin.blur();
+    updateUI(currentAccount);
+  }
+})
+
+//loans
+btnLoan.addEventListener('click',function(e){
+  e.preventDefault();
+  const amount = Number(inputLoanAmount.value);
+
+    //loans is provided by the bank if the account has any movement with at least 10% of the loan.
+  if(amount > 0 && currentAccount.movements.some(mov => mov >= amount/10 )){
+    // add movement
+    currentAccount.movements.push(amount);
+    inputLoanAmount.value = '';
+    updateUI(currentAccount);
+  }
+})
+
+// delete account
+btnClose.addEventListener('click',function(e){
+  e.preventDefault();
+  if(inputCloseUsername.value == currentAccount.username && Number(inputClosePin.value) === currentAccount.pin){
+    
+    const index = accounts.findIndex( acc => acc.username === currentAccount.username);
+    accounts.splice(index, 1);
+
+    //hide UI
+    inputCloseUsername.value = inputClosePin.value = '';
+    containerApp.style.opacity = 0;
+  }
+})
+
+btnSort.addEventListener('click',function(e){
+  e.preventDefault();
+  let sorted = false;
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
+});
+
 const withdrawals = movements.filter( mov => mov < 0);
 console.log(withdrawals);
+
+//TRANSFERS
+btnTransfer.addEventListener('click', function(e){
+  e.preventDefault();
+  const amount = Number(inputTransferAmount.value);
+  const receiverAccount = accounts.find(acc => acc.username === inputTransferTo.value);
+  
+  inputTransferAmount.value = inputTransferTo.value = '';
+
+  if(amount > 0 && amount <= currentAccount.balance && receiverAccount && receiverAccount?.username !== currentAccount.username){
+    currentAccount.movements.push(-amount);
+    receiverAccount.movements.push(amount);
+    updateUI(currentAccount);
+  }
+})
+
+
 
 /////////////////////////////////////////////////
 
@@ -195,14 +304,65 @@ Test data:
   § Data 2: [16, 6, 10, 5, 6, 1, 4]
 */
 
-const calcAverageHumanAge = function(ages) {
-  const humanAges = ages.map( age => age <= 2 ? 2 * age : 16 + age * 4);
-  const oldDogs = humanAges.filter(age => age >= 18);
-  const avgHumanAge = (oldDogs.reduce( (acc, current) => acc + current)) / oldDogs.length;
-  console.log('human ages: ' + humanAges);
-  console.log('Old dogs: ' + oldDogs);
-  console.log('Average human ages: ' + avgHumanAge);
-}
+// const calcAverageHumanAge = function(ages) {
+//   const humanAges = ages.map( age => age <= 2 ? 2 * age : 16 + age * 4);
+//   const oldDogs = humanAges.filter(age => age >= 18);
+//   const avgHumanAge = (oldDogs.reduce( (acc, current) => acc + current)) / oldDogs.length;
+//   console.log('human ages: ' + humanAges);
+//   console.log('Old dogs: ' + oldDogs);
+//   console.log('Average human ages: ' + avgHumanAge);
+// }
 
-calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
+// calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
 // calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
+
+/////////////////////////////////////////////////
+
+// CHALLENGE 3
+
+/* 
+  Your tasks:
+  Rewrite calcAverageHumanAge with arrow functions and chaning methods.
+  Test data:
+  § Data 2: [16, 6, 10, 5, 6, 1, 4]
+*/
+
+// const calcAverageHumanAgeV2 = ages =>
+//       ages.map(age => (age <= 2 ? 2 * age : 16 + age * 4))
+//           .filter(age => age >= 18)
+//           .reduce( (acc, curr, i, arr) => (acc += curr) / arr.length, 0);
+
+// const avg1 = calcAverageHumanAgeV2([5, 2, 4, 1, 15, 8, 3]);
+// const avg2 = calcAverageHumanAgeV2([16, 6, 10, 5, 6, 1, 4]);
+// console.log(avg1, avg2);
+
+// FLAT method
+const overalBalance = accounts
+    .map(acc => acc.movements)
+    .flat()
+    .reduce((acc,curr) => acc += curr, 0);
+console.log(overalBalance);
+
+// FLATMAP method
+const overalBalance2 = accounts
+    .flatMap(acc => acc.movements)
+    .reduce((acc,curr) => acc += curr, 0);
+console.log(overalBalance2);
+
+// sorting arrays
+
+// movements.sort((a,b) => {
+//   if (a > b) return 1;
+//   if (a < b) return -1;
+// });
+
+// return 1 o 1 en realidad es un numero positivo o negativo
+// no encesariamente tiene que ser 1 o -1
+// por eso, podemos simplificar la función
+// sabemos que si a es mayor que b, entonces a-b es positivo.
+// y si b es mayor que a. entonces a-b es negativo, so..
+// sort mutate the array.
+
+movements.sort((a,b) => a-b);
+
+console.log('ordernados' + movements);
