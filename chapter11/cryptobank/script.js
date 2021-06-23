@@ -62,7 +62,8 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 const displayMovements = function(movements, sort = false){
-
+  containerMovements.textContent = '';
+  // slice me crea una copia del array. Lo puedo usar así para no mutar el original
   const movs = sort ? movements.slice().sort((a,b) => a-b) : movements;
 
   movs.forEach(function(movement, index){
@@ -210,9 +211,10 @@ btnClose.addEventListener('click',function(e){
   }
 })
 
+// SORT
+let sorted = false;
 btnSort.addEventListener('click',function(e){
   e.preventDefault();
-  let sorted = false;
   displayMovements(currentAccount.movements, !sorted);
   sorted = !sorted;
 });
@@ -363,6 +365,104 @@ console.log(overalBalance2);
 // y si b es mayor que a. entonces a-b es negativo, so..
 // sort mutate the array.
 
-movements.sort((a,b) => a-b);
+// movements.sort((a,b) => a-b);
+// console.log('ordernados' + movements);
 
-console.log('ordernados' + movements);
+// Creating arrays
+
+const arr = Array.from({length: 100}, () => Math.floor(Math.random() * 100));
+console.log(arr);
+
+/*
+
+Coding Challenge #4
+Julia and Kate are still studying dogs, and this time they are studying if dogs are eating too much or too little.
+Eating too much means the dog's current food portion is larger than the recommended portion, and eating too little is the opposite.
+Eating an okay amount means the dog's current food portion is within a range 10% above and 10% below the recommended portion (see hint).
+Your tasks:
+1. Loopoverthe'dogs'arraycontainingdogobjects,andforeachdog,calculate the recommended food portion and add it to the object as a new property. Do not create a new array, simply loop over the array. Forumla: recommendedFood = weight ** 0.75 * 28. (The result is in grams of food, and the weight needs to be in kg)
+2. FindSarah'sdogandlogtotheconsolewhetherit'seatingtoomuchortoo little. Hint: Some dogs have multiple owners, so you first need to find Sarah in the owners array, and so this one is a bit tricky (on purpose) 🤓
+3. Createanarraycontainingallownersofdogswhoeattoomuch ('ownersEatTooMuch') and an array with all owners of dogs who eat too little ('ownersEatTooLittle').
+4. Logastringtotheconsoleforeacharraycreatedin3.,likethis:"Matildaand Alice and Bob's dogs eat too much!" and "Sarah and John and Michael's dogs eat too little!"
+5. Logtotheconsolewhetherthereisanydogeatingexactlytheamountoffood that is recommended (just true or false)
+6. Logtotheconsolewhetherthereisanydogeatinganokayamountoffood (just true or false)
+7. Createanarraycontainingthedogsthatareeatinganokayamountoffood(try to reuse the condition used in 6.)
+8. Createashallowcopyofthe'dogs'arrayandsortitbyrecommendedfood portion in an ascending order (keep in mind that the portions are inside the array's objects 😉)
+    The Complete JavaScript Course 25
+Hints:
+§ Being within a range 10% above and below the recommended portion means: current > (recommended * 0.90) && current < (recommended * 1.10). Basically, the current portion should be between 90% and 110% of the recommended portion.
+
+*/
+
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] },
+  ];
+
+  const recommendedFood = (weight => weight ** 0.75 * 28);
+  const eatingToo = ( (currFood, weight) => {
+    if(currFood > recommendedFood(weight) * 1.1){
+      return 'much';
+    }else if(currFood < recommendedFood(weight) * 0.9){
+      return 'little'
+    }else{
+      return false;
+    }
+  });
+  const eatingTooLittle = ( (currFood, weight) => currFood < recommendedFood(weight) * 0.9 ? true : false);
+  const eatingTooMuch = ( (currFood, weight) => currFood > recommendedFood(weight) * 1.1 ? true : false);
+
+  const calculateRecommendedFood = function(dogs){
+    dogs.forEach(dog => dog.recFood = Math.trunc(recommendedFood(dog.weight)));
+    return dogs.recFood;
+  }
+  calculateRecommendedFood(dogs);
+  console.log(dogs);
+
+ // sarah's dog
+  const sarahsdog = dogs
+  .find(obj => obj.owners.includes('Sarah'));
+
+  console.log(sarahsdog);
+  console.log(`${sarahsdog.owners[0]}'s dog eating too ${eatingToo(sarahsdog.curFood,sarahsdog.weight)}`);
+
+  //3
+const ownersEatTooLittle = dogs
+  .filter(dog => eatingTooLittle(dog.curFood, dog.weight) ? dog.owners : '')
+  .flatMap(dog => dog.owners);
+const ownersEatTooMuch = dogs
+  .filter(dog => eatingTooMuch(dog.curFood, dog.weight) ? dog.owners : '')
+  .flatMap(dog => dog.owners);
+console.log(`Owners whos dogs eat too Much: ${ownersEatTooMuch}`);
+console.log(`Owners whos dogs eat too Little: ${ownersEatTooLittle}`);
+
+//4
+const nameStrings = (names => names.join().replaceAll(',',' and '));
+console.log(`${nameStrings(ownersEatTooLittle)}'s dogs eat too little!`);
+console.log(`${nameStrings(ownersEatTooMuch)}'s dogs eat too much!`);
+
+//5
+/* 
+- Tengo que recorrer el array de dogs.
+- preguntar si currFood === recFood;
+*/
+// no hace falta un map porque some recorre el array buscando esta condición.
+console.log(dogs.some(dog => dog.curFood === dog.recFood));
+
+// 6
+console.log(dogs.some(dog => eatingToo(dog.curFood,dog.weight) == false));
+
+// 7
+// const dogsEatingOK = Array.from(4, dogs => (eatingToo(dogs.curFood,dogs.weight) == false) ? dogs : '');
+// console.log(dogsEatingOK);
+
+const dogsEatingOK = dogs.filter(dog => (eatingToo(dog.curFood,dog.weight) == false));
+console.log('eating ok: ' + dogsEatingOK);
+
+//8
+// - crear una copia de dog array.
+// - sort it by recFood in ascending order.
+const shallowDogs = dogs.slice().sort((a,b) => a.recFood - b.recFood); 
+console.log(shallowDogs);
