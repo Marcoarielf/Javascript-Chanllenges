@@ -10,6 +10,10 @@ const account1 = {
   movements: [10, 450, -400, 24, -650, -130, 70, 80],
   interestRate: 1.2, // %
   pin: 1111,
+
+  movementDates: [
+    '2021-06-1BT21:31:17.178Z',
+  ]
 };
 
 const account2 = {
@@ -73,7 +77,7 @@ const displayMovements = function(movements, sort = false){
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${index + 1} ${type}</div>
         <div class="movements__date">3 days ago</div>
-        <div class="movements__value">${movement}</div>
+        <div class="movements__value">${movement.toFixed(2)}</div>
       </div>
     `;
 
@@ -84,7 +88,7 @@ const displayMovements = function(movements, sort = false){
 
 const displayBalance = function(acc){
   acc.balance = acc.movements.reduce((acc, curr) => acc += curr, 0);
-  labelBalance.textContent = `${acc.balance} $`
+  labelBalance.textContent = `${acc.balance.toFixed(2) } $`
 }
 
 // displaySummary
@@ -103,9 +107,9 @@ const summary = function(acc){
                       .filter(mov => mov >= 1)
                       .reduce((acc, curr) => acc += curr);
 
-  labelSumIn.textContent = `${incomes}BTC`;
-  labelSumOut.textContent = `${Math.abs(outcomes)}BTC`;
-  labelSumInterest.textContent = `${interesest}USD`;
+  labelSumIn.textContent = `${incomes.toFixed(2)}BTC`;
+  labelSumOut.textContent = `${Math.abs(outcomes.toFixed(2))}BTC`;
+  labelSumInterest.textContent = `${interesest.toFixed(2)}USD`;
 
 }
 
@@ -166,6 +170,9 @@ console.log(accounts);
 // event handlers
 let currentAccount;
 
+const now = new Date();
+labelDate.textContent = now(dd/mm/yy);
+
 btnLogin.addEventListener('click',function(e){
   e.preventDefault();
 
@@ -186,7 +193,7 @@ btnLogin.addEventListener('click',function(e){
 //loans
 btnLoan.addEventListener('click',function(e){
   e.preventDefault();
-  const amount = Number(inputLoanAmount.value);
+  const amount = Math.floor(inputLoanAmount.value);
 
     //loans is provided by the bank if the account has any movement with at least 10% of the loan.
   if(amount > 0 && currentAccount.movements.some(mov => mov >= amount/10 )){
@@ -200,7 +207,7 @@ btnLoan.addEventListener('click',function(e){
 // delete account
 btnClose.addEventListener('click',function(e){
   e.preventDefault();
-  if(inputCloseUsername.value == currentAccount.username && Number(inputClosePin.value) === currentAccount.pin){
+  if(inputCloseUsername.value == currentAccount.username && +(inputClosePin.value) === currentAccount.pin){
     
     const index = accounts.findIndex( acc => acc.username === currentAccount.username);
     accounts.splice(index, 1);
