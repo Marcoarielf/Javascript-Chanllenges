@@ -174,9 +174,9 @@ const summary = function(acc){
                       .filter(mov => mov >= 1)
                       .reduce((acc, curr) => acc += curr);
 
-  labelSumIn.textContent = `${(incomes/btcPrice).toFixed(2)}BTC`;
-  labelSumOut.textContent = `${Math.abs(outcomes/btcPrice.toFixed(2))}BTC`;
-  labelSumInterest.textContent = `${interesest/btcPrice.toFixed(2)}BTC`;
+  labelSumIn.textContent = `${((incomes/btcPrice)).toFixed(2)}BTC`;
+  labelSumOut.textContent = `${Math.abs((outcomes/btcPrice).toFixed(2))}BTC`;
+  labelSumInterest.textContent = `${(interesest/btcPrice).toFixed(4)}BTC`;
 
 }
 
