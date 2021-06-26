@@ -7,11 +7,7 @@
 // Data
 const account1 = {
   owner: 'Marco Filetto',
-<<<<<<< HEAD
   movements: [1130, 450, -400, 3424, -650, -130, 7230, 820],
-=======
-  movements: [100000, 450, 400, 24, -650, 630, 70, 80],
->>>>>>> 8e033b56863f6db1864661ede6fdd818d610116a
   interestRate: 1.2, // %
   pin: 1111,
 
