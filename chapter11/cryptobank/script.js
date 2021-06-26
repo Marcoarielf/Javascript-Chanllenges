@@ -25,7 +25,7 @@ const account2 = {
 
 const account3 = {
   owner: 'Elon Musk',
-  movements: [2000, -1200, 3240, -3000, -230, 5340, 4030, -460],
+  movements: [2000, -1200, 3240, 3000, -230, 5340, 4030, -460],
   interestRate: 0.7,
   pin: 3333,
 };
