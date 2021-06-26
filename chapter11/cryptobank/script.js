@@ -7,7 +7,7 @@
 // Data
 const account1 = {
   owner: 'Marco Filetto',
-  movements: [10, 450, -400, 24, -650, -130, 70, 80],
+  movements: [1130, 450, -400, 3424, -650, -130, 7230, 820],
   interestRate: 1.2, // %
   pin: 1111,
 
@@ -25,7 +25,7 @@ const account2 = {
 
 const account3 = {
   owner: 'Elon Musk',
-  movements: [2000, -12200, 3240, -3000, -2230, 5340, 4030, -460],
+  movements: [2000, -1200, 3240, -3000, -230, 5340, 4030, -460],
   interestRate: 0.7,
   pin: 3333,
 };
