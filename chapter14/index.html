@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>OOP</title>
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        background: linear-gradient(to top left, #28b487, #7dd56f);
+      }
+      h1 {
+        font-family: sans-serif;
+        font-size: 50px;
+        line-height: 1.3;
+        width: 100%;
+        padding: 30px;
+        text-align: center;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>OBJECT ORIENTED PROGRAMMING</h1>
+
+    <script>
+      'use strict'
+      
+      // we create objects like a normal function.
+      // function contructor
+      const MyFirstObject = function(param1, param2){
+        this.firstName = param1;
+        this.birthYear = param2;
+        // creating methods -> NEVER TO THIS. for methods we use Prototype!!
+        //this.calcAge = function(){
+        //  console.log(2037 - this.age);
+        //}
+      }
+
+      // instancio al objeto
+      const miPrimeraInstancia = new MyFirstObject('Marco',1996);
+      const miSegundaInstancia = new MyFirstObject('Lucio',1995);
+      console.log(miPrimeraInstancia);
+      console.log(miSegundaInstancia);
+
+      // 4 STEPS:
+      // New empty object {} is created
+      // The function is called with this keyword = {}
+      /* {} is linked to prototype: the new object is linked to the constructor
+      function prototype property. In this case: 'MyFirstObject.prototype' 
+      Esto pasa internamente, js agrega __proto__ al new object,  entonces:
+      MyFirstObject.prototype es ahora los prototipos de los nuevos objetos
+      
+      */
+      // function automatically return this new object created.
+
+      //create a prototype:
+      MyFirstObject.prototype.calcAge = function(){
+      console.log(2021 - this.birthYear);
+      }
+
+      console.log(MyFirstObject.prototype);
+
+      // ahora puedo llamar al método calcAge desde cualquier instancia de mi objeto.
+      miSegundaInstancia.calcAge();
+      console.log(miSegundaInstancia.__proto__);
+
+      /* MyfirstObject.prototype. This prototype no es el prototipo de MyFirstObject, 
+      pero así es como será usado, como el prototypo de todos los objetos que creamos
+      con MyFirstObject funcion contructor. 
+      */
+      console.log(miPrimeraInstancia.__proto__ === MyFirstObject.prototype);
+
+      
+      console.log(MyFirstObject.prototype.isPrototypeOf(miPrimeraInstancia)); // true
+      // por lo que dijimos arriba, MyFirstObject.prototype no es el prototipo de MyFirstObject,
+      console.log(MyFirstObject.prototype.isPrototypeOf(MyFirstObject)); // false
+
+      //podemos pensar al prototype object como un link de protortype objects
+      // sería mejor llamarlo .prototypeOfLinkedObject.. 
+
+      /* prototype chain: 
+      MyFirstObject.prototype es un un objeto. Este objeto tiene un prototipo.
+      Este prototipo es el Object de JS. Este object de JS tiene un prototipo.
+      */
+      console.dir(MyFirstObject.prototype.constructor.prototype.__proto__);
+
+      const arr = [3,5,7,7];
+      console.log(arr.__proto__ == Array.prototype);
+
+      // con esto, podemos crearla métodos al Array.protype (array constructor) de Javascript y que sus
+      // array hijos lo hereden
+      Array.prototype.unique = function(){
+        return [...new Set(this)];
+      };
+      // ahora todos los arrays tienen esta funcion para eliminar duplicados.
+      // But this isn't a good idea. JS could create this funcionallity in the future.
+      console.log(arr.unique());
+    </script>
+  </body>
+</html>
