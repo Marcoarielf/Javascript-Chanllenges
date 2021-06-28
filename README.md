@@ -14,7 +14,10 @@ All challenges are on 'all-coding-challenges.pdf': file uploaded in the root dir
 * "/chapter9" Data Structures / Modern Operators and String. 4 Coding Challeges: Destructuring, SPREAD, REST, SET, MAPS, STRINGS, and more... *
 * "/chapter9" Closer look at functions: Call & bind methods, IIFE, closures ✅*}
 * "/chapter11" Arrays methods + CryptoAPP 🤑*
-* * "/chapter12" Working with numbers and dates and implementing it to cryptoAPP*
+* "/chapter12" Working with numbers and dates and implementing it to cryptoAPP. You can see the entire app here: https://lnkd.in/dHKaXeZ. I leave you some users to test the app:
+* * username: mf psswd: 1111
+* * username: em psswd: 3333 (In honour of Elon Musk 🤣)
+* * username: cb psswd: 4444*
 
 
 
