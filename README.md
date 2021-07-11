@@ -18,6 +18,7 @@ All challenges are on 'all-coding-challenges.pdf': file uploaded in the root dir
 * * username: mf psswd: 1111
 * * username: em psswd: 3333 (In honour of Elon Musk 🤣)
 * * username: cb psswd: 4444*
+* "/chapter15" Mapty APP: we use OOP creating an mapty app. You can pick on the map and save your running/cycling progress. Also, we use a API localstorage to save data. You can try it here: https://reverent-wilson-894a2d.netlify.app/ 🥳
 
 
 
