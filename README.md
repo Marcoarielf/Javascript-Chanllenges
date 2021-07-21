@@ -21,7 +21,7 @@ All challenges are on 'all-coding-challenges.pdf': file uploaded in the root dir
 * "/chapter15" Mapty APP: we use OOP creating an mapty app. You can pick on the map and save your running/cycling progress. Also, we use a API localstorage to save data. You can try it here: https://reverent-wilson-894a2d.netlify.app/ 🥳
 * "/chapter16" ASYNC & SYNC code: how javascript works with async and sync code behind the scenes. Working with promises, async await, and more.
 * "/chapter17" Good practices and modern Javascript.
-* "/chapter18" Final Forkify project. A great project where we work with everything we have learned.. We followed MVC architecture and install nodeJS to work with PARCEL.
+* "/chapter18" Final Forkify project. A great project where we work with everything we have learned.. We followed MVC architecture and install nodeJS to work with PARCEL, store data in LocalStorage and more.
 
 
 
